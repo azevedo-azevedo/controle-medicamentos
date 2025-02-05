@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Dose</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        select, input, button {
+            margin: 10px;
+            padding: 10px;
+        }
+        input {
+    width: 200px;
+    height: 10px;
+    font-size: 12px;
+}
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Calculadora de Dose</h2>
+    
+    <label for="marca">Selecione a Marca:</label>
+    <select id="marca">
+        <option value="35">Biocase (35 gotas/ml)</option>
+        <option value="40">Bontà Botanicals (40 gotas/ml)</option>
+        <option value="44">Canna River (44 gotas/ml)</option>
+        <option value="38">cbdMD (38 gotas/ml)</option>
+        <option value="47">CBfarma (47 gotas/ml)</option>
+        <option value="43">Eliv (43 gotas/ml)</option>
+        <option value="40">Erth Wellness (40 gotas/ml)</option>
+        <option value="36">Entourage (36 gotas/ml)</option>
+        <option value="42">Evona (42 gotas/ml)</option>
+        <option value="30">Extractos del Sur (30 gotas/ml)</option>
+        <option value="36">Greens (36 gotas/ml)</option>
+        <option value="45">HempMeds RSHO BR 3000 (45 gotas/ml)</option>
+        <option value="50">HempMeds RSHO BR 6000 (50 gotas/ml)</option>
+        <option value="50">HempMeds RSHO Calm Support (50 gotas/ml)</option>
+        <option value="35">HempMeds RSHO Focus Support (35 gotas/ml)</option>
+        <option value="50">HempMeds RSHO X 6000 (50 gotas/ml)</option>
+        <option value="49">Korasana (49 gotas/ml)</option>
+        <option value="35">Lazarus Naturals (35 gotas/ml)</option>
+        <option value="41">Moolion (41 gotas/ml)</option>
+        <option value="48">Naternal (48 gotas/ml)</option>
+        <option value="42">Neurogan (42 gotas/ml)</option>
+        <option value="40">Nex Biopharma (40 gotas/ml)</option>
+        <option value="40">Odonto CBD (40 gotas/ml)</option>
+        <option value="45">Pure Jamaican (45 gotas/ml)</option>
+        <option value="33">Sensia 1:1 e THC (33 gotas/ml)</option>
+        <option value="45">Sensia (45 gotas/ml)</option>
+        <option value="56">Serene (56 gotas/ml)</option>
+        <option value="46">Swiss Vitalis (46 gotas/ml)</option>
+        <option value="35">UB Super (35 gotas/ml)</option>
+        <option value="34">Valtellinamed (34 gotas/ml)</option>
+        <option value="30">USA Hemp (30 gotas/ml)</option>
+        <option value="30">Volcanic (30 gotas/ml)</option>        
+    </select>
+    <br>
+
+    <label for="unidade">Unidade de Dosagem:</label>
+    <select id="unidade" onchange="atualizarPlaceholder()">
+        <option value="gotas">Gotas</option>
+        <option value="ml">mL</option>
+        <option value="mg">mg</option>
+    </select>
+    <br>
+
+    <label for="volume">Volume do Frasco (mL):</label>
+    <select id="volume">
+        <option value="15">15 mL</option>
+        <option value="30">30 mL</option>
+        <option value="60">60 mL</option>
+        <option value="120">120 mL</option>
+    </select>
+    <br>
+
+    <label for="miligramagem">Concentração do Medicamento (mg):</label>
+    <input type="number" id="miligramagem" placeholder="Informe a miligramagem" min="1">
+    <br>
+
+    <label for="dosagem">Dosagem Diária:</label>
+    <input type="number" id="dosagem" placeholder="Informe a dosagem" min="0.01" step="0.01">
+    <br>
+
+    <button onclick="calcularMgDia()">Calcular</button>
+    <p id="resultado"></p>
+
+    <script>
+        function atualizarPlaceholder() {
+            const unidade = document.getElementById("unidade").value;
+            document.getElementById("dosagem").placeholder = unidade === "gotas" ? "Informe a dosagem em gotas" : unidade === "ml" ? "Informe a dosagem em mL" : "Informe a dosagem em mg";
+        }
+
+        function calcularMgDia() {
+            const marca = parseFloat(document.getElementById("marca").value);
+            const unidade = document.getElementById("unidade").value;
+            const volume = parseFloat(document.getElementById("volume").value);
+            const miligramagem = parseFloat(document.getElementById("miligramagem").value);
+            const dosagem = parseFloat(document.getElementById("dosagem").value);
+            const resultado = document.getElementById("resultado");
+
+            if (isNaN(dosagem) || dosagem <= 0 || isNaN(miligramagem) || miligramagem <= 0) {
+                resultado.innerHTML = '<span style="color: red;">Por favor, insira valores válidos.</span>';
+                return;
+            }
+
+            let resultadoTexto = '';
+            if (unidade === "gotas") {
+                // Calcular em mg/dia a partir de gotas
+                const mlPorDia = dosagem / marca;
+                const mgDia = (mlPorDia * miligramagem) / volume;
+                resultadoTexto = `A dose diária do medicamento é de aproximadamente <strong>${mgDia.toFixed(2)}</strong> mg/dia.`;
+            } else if (unidade === "ml") {
+                // Calcular em mg/dia a partir de ml
+                const mgDia = (dosagem * miligramagem) / volume;
+                resultadoTexto = `A dose diária do medicamento é de aproximadamente <strong>${mgDia.toFixed(2)}</strong> mg/dia.`;
+            } else if (unidade === "mg") {
+                // Calcular a quantidade de gotas e ml necessárias para atingir a dosagem em mg
+                const mgPorMl = miligramagem / volume; // mg por ml
+                const mlNecessarios = dosagem / mgPorMl; // quantidade de ml necessária
+                const gotasNecessarias = mlNecessarios * marca; // quantidade de gotas necessária
+
+                resultadoTexto = `A dose diária do medicamento é de aproximadamente <strong>${gotasNecessarias.toFixed(0)}</strong> gotas ou <strong>${mlNecessarios.toFixed(2)}</strong> ml por dia para administrar ${dosagem} mg do medicamento.`;
+            }
+
+            resultado.innerHTML = resultadoTexto;
+        }
+        document.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        calcularDuracao();
+        document.activeElement.blur();
+    }
+});
+    </script>
+</body>
+</html>

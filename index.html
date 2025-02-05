@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App de Controle de Medicamentos</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        /* Cabeçalho */
+        .header {
+            text-align: center;
+            background:#4C5B2F;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Menu lateral */
+        .menu {
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            background: #4C5B2F;
+            color: white;
+            padding-top: 60px;
+            transition: left 0.3s;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-bottom: 1px solid #3B4A24;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .menu a:hover {
+            background: #3B4A24;
+        }
+
+        /* Botão hambúrguer */
+        .menu-btn {
+            font-size: 20px;
+            cursor: pointer;
+            background:#4C5B2F;
+            color: white;
+            padding: 10px 15px;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Botão fechar dentro do menu */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Conteúdo principal */
+        .content {
+            margin-left: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Estilos do iframe */
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: none;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        Bem-vindo ao App de Controle de Medicamentos<br>
+        Escolha uma calculadora no menu lateral.
+    </div>
+
+    <!-- Botão para abrir o menu -->
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+    <!-- Menu lateral -->
+    <div class="menu" id="menu">
+        <button class="close-btn" onclick="toggleMenu()">✖</button>
+        <a href="#" onclick="voltarInicio()">Início</a>
+        <a href="#" onclick="carregarCalculadora('Calculadora-dose.html')">Calculadora de Dose</a>
+        <a href="#" onclick="carregarCalculadora('Calculadora-estoque.html')">Calculadora de Estoque</a>
+        <a href="#" onclick="carregarCalculadora('Calculadora-frasco.html')">Calculadora de Frasco</a>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="content">
+        <iframe id="calculadoraFrame"></iframe>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("menu");
+            menu.style.left = (menu.style.left === "0px") ? "-250px" : "0px";
+        }
+
+        function carregarCalculadora(pagina) {
+            const frame = document.getElementById("calculadoraFrame");
+            frame.src = pagina;
+            frame.style.display = "block";
+        }
+
+        function voltarInicio() {
+            const frame = document.getElementById("calculadoraFrame");
+            frame.style.display = "none";
+        }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.ctrlKey && event.key === "b") {
+                toggleMenu();
+                event.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+</html>

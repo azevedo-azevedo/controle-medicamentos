@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Duração de Estoque</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        select, input, button {
+            margin: 10px;
+            padding: 10px;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .meses {
+            color: red;
+            font-weight: bold;
+        }
+        #dataSinalizacao {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Calculadora de Duração de Estoque</h2>
+    
+    <label for="marca">Selecione a Marca:</label>
+    <select id="marca">
+        <option value="35">Biocase (35 gotas/ml)</option>
+        <option value="40">Bontà Botanicals (40 gotas/ml)</option>
+        <option value="44">Canna River (44 gotas/ml)</option>
+        <option value="38">cbdMD (38 gotas/ml)</option>
+        <option value="47">CBfarma (47 gotas/ml)</option>
+        <option value="43">Eliv (43 gotas/ml)</option>
+        <option value="36">Entourage (36 gotas/ml)</option>
+        <option value="42">Evona (42 gotas/ml)</option>
+        <option value="35">Biocase (35 gotas/ml)</option>
+        <option value="40">Bontà Botanicals (40 gotas/ml)</option>
+        <option value="44">Canna River (44 gotas/ml)</option>
+        <option value="38">cbdMD (38 gotas/ml)</option>
+        <option value="47">CBfarma (47 gotas/ml)</option>
+        <option value="43">Eliv (43 gotas/ml)</option>
+        <option value="40">Erth Wellness (40 gotas/ml)</option>
+        <option value="36">Entourage (36 gotas/ml)</option>
+        <option value="42">Evona (42 gotas/ml)</option>
+        <option value="30">Extractos del Sur (30 gotas/ml)</option>
+        <option value="36">Greens (36 gotas/ml)</option>
+        <option value="45">HempMeds RSHO BR 3000 (45 gotas/ml)</option>
+        <option value="50">HempMeds RSHO BR 6000 (50 gotas/ml)</option>
+        <option value="50">HempMeds RSHO Calm Support (50 gotas/ml)</option>
+        <option value="35">HempMeds RSHO Focus Support (35 gotas/ml)</option>
+        <option value="50">HempMeds RSHO X 6000 (50 gotas/ml)</option>
+        <option value="49">Korasana (49 gotas/ml)</option>
+        <option value="35">Lazarus Naturals (35 gotas/ml)</option>
+        <option value="41">Moolion (41 gotas/ml)</option>
+        <option value="48">Naternal (48 gotas/ml)</option>
+        <option value="42">Neurogan (42 gotas/ml)</option>
+        <option value="40">Nex Biopharma (40 gotas/ml)</option>
+        <option value="40">Odonto CBD (40 gotas/ml)</option>
+        <option value="45">Pure Jamaican (45 gotas/ml)</option>
+        <option value="33">Sensia 1:1 e THC (33 gotas/ml)</option>
+        <option value="45">Sensia (45 gotas/ml)</option>
+        <option value="56">Serene (56 gotas/ml)</option>
+        <option value="46">Swiss Vitalis (46 gotas/ml)</option>
+        <option value="35">UB Super (35 gotas/ml)</option>
+        <option value="34">Valtellinamed (34 gotas/ml)</option>
+        <option value="30">USA Hemp (30 gotas/ml)</option>
+        <option value="30">Volcanic (30 gotas/ml)</option>        
+    </select>
+    <br>
+    
+    
+    <label for="unidade">Unidade de Dosagem:</label>
+    <select id="unidade" onchange="atualizarPlaceholder()">
+        <option value="gotas">Gotas</option>
+        <option value="ml">mL</option>
+    </select>
+    <br>
+    
+    <label for="volume">Volume do Frasco (mL):</label>
+    <select id="volume">
+        <option value="15">15 mL</option>
+        <option value="30">30 mL</option>
+        <option value="60">60 mL</option>
+        <option value="120">120 mL</option>
+    </select>
+    <br>
+
+    <label for="dosagem">Dosagem Diária:</label>
+    <input type="number" id="dosagem" placeholder="Informe a dosagem" min="0.01" step="0.01">
+    <br>
+
+    <label for="quantidade">Quantidade de Frascos:</label>
+    <input type="number" id="quantidade" placeholder="Quantidade de frascos" min="1" step="1" value="1">
+    <br>
+
+    <label for="dataInicio">Data de Início:</label>
+    <input type="date" id="dataInicio">
+    <br>
+    
+    <button onclick="calcularDuracao()">Calcular</button>
+    <p id="resultado"></p>
+    <p id="dataFinal"></p>
+    <p id="dataSinalizacao"></p>
+    
+    <script>
+        function atualizarPlaceholder() {
+            const unidade = document.getElementById("unidade").value;
+            document.getElementById("dosagem").placeholder = unidade === "gotas" ? "Informe a dosagem em gotas" : "Informe a dosagem em mL";
+        }
+
+        function calcularDuracao() {
+            const marca = parseFloat(document.getElementById("marca").value);
+            const unidade = document.getElementById("unidade").value;
+            const volume = parseFloat(document.getElementById("volume").value);
+            const dosagem = parseFloat(document.getElementById("dosagem").value);
+            const quantidadeFrascos = parseInt(document.getElementById("quantidade").value) || 1;
+            const dataInicio = document.getElementById("dataInicio").value;
+            
+            const resultado = document.getElementById("resultado");
+            const dataFinal = document.getElementById("dataFinal");
+            const dataSinalizacao = document.getElementById("dataSinalizacao");
+
+            if (isNaN(dosagem) || dosagem <= 0 || !dataInicio) {
+                resultado.innerHTML = '<span style="color: red;">Por favor, insira uma dosagem válida e a data de início.</span>';
+                dataFinal.innerHTML = "";
+                dataSinalizacao.innerHTML = "";
+                return;
+            }
+            
+            let dias;
+            if (unidade === "gotas") {
+                const totalGotas = marca * volume;
+                dias = totalGotas / dosagem;
+            } else {
+                dias = volume / dosagem;
+            }
+
+            // Multiplicando pelo número de frascos
+            dias *= quantidadeFrascos;
+
+            resultado.innerHTML = `O(s) frasco(s) irá(ão) durar aproximadamente <strong>${Math.floor(dias)}</strong> dias.`;
+            
+            // Calcular a data final
+            const dataInicioObj = new Date(dataInicio);
+            dataInicioObj.setDate(dataInicioObj.getDate() + Math.floor(dias));
+            const dataFinalStr = dataInicioObj.toLocaleDateString('pt-BR');
+            dataFinal.innerHTML = `A data final do estoque será: <strong>${dataFinalStr}</strong>`;
+            
+            // Calcular a data de sinalização (45 dias antes da data final)
+            const dataSinalizacaoObj = new Date(dataInicioObj);
+            dataSinalizacaoObj.setDate(dataSinalizacaoObj.getDate() - 45);
+            const dataSinalizacaoStr = dataSinalizacaoObj.toLocaleDateString('pt-BR');
+            dataSinalizacao.innerHTML = `O paciente deve ser sinalizado no dia: <strong>${dataSinalizacaoStr}</strong>`;
+        }
+        document.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        calcularDuracao();
+        document.activeElement.blur();
+    }
+});
+    </script>
+</body>
+</html>
