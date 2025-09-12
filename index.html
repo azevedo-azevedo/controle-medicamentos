@@ -1,157 +1,261 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App de Controle de Medicamentos</title>
-    <style>
-        /* Estilos gerais */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e0e0e0;
-            color: #333;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App de Controle de Medicamentos</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f8;
+      color: #333;
+    }
 
-        /* Cabeçalho */
-        .header {
-            text-align: center;
-            background:#4C5B2F;
-            color: white;
-            padding: 15px;
-            font-size: 15px;
-            font-weight: bold;
-        }
+    /* Cabeçalho */
+    .header {
+      background: #4C5B2F;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      position: relative;
+    }
 
-        /* Menu lateral */
-        .menu {
-            width: 220px;
-            position: fixed;
-            top: 0;
-            left: -250px;
-            height: 100%;
-            background: #4C5B2F;
-            color: white;
-            padding-top: 60px;
-            transition: left 0.3s;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-        }
+    .header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
 
-        .menu a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 15px;
-            border-bottom: 1px solid #3B4A24;
-            font-size: 13px;
-            transition: background 0.3s;
-        }
+    .header p {
+      margin: 5px 0 0;
+      font-size: 14px;
+      font-weight: normal;
+    }
 
-        .menu a:hover {
-            background: #3B4A24;
-        }
+    /* Botão hambúrguer */
+    .menu-btn {
+      font-size: 22px;
+      cursor: pointer;
+      background: #4C5B2F;
+      color: white;
+      padding: 10px 12px;
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      border: none;
+      border-radius: 5px;
+    }
 
-        /* Botão hambúrguer */
-        .menu-btn {
-            font-size: 20px;
-            cursor: pointer;
-            background:#4C5B2F;
-            color: white;
-            padding: 10px 15px;
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            border: none;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
+    /* Menu lateral */
+    .menu {
+      width: 220px;
+      position: fixed;
+      top: 0;
+      left: -250px;
+      height: 100%;
+      background: #4C5B2F;
+      color: white;
+      padding-top: 60px;
+      transition: left 0.3s;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
 
-        /* Botão fechar dentro do menu */
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 20px;
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-        }
+    .menu a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 15px;
+      border-bottom: 1px solid #3B4A24;
+      font-size: 14px;
+    }
 
-        /* Conteúdo principal */
-        .content {
-            margin-left: 0;
-            padding: 20px;
-            text-align: center;
-        }
+    .menu a:hover {
+      background: #3B4A24;
+    }
 
-        .content p {
-            font-size: 16px;
-            color: #666;
-        }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
 
-        /* Estilos do iframe */
-        iframe {
-            width: 100%;
-            height: 600px;
-            border: none;
-            display: none;
-            background: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-    </style>
+    /* Conteúdo principal */
+    .content {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .content h2 {
+      font-size: 24px;
+      color: #4C5B2F;
+      margin-bottom: 10px;
+    }
+
+    .content p {
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    /* Cards */
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      width: 260px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin: 15px 0 10px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* Como usar */
+    .como-usar {
+      background: #E9F1D7;
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .como-usar h4 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #4C5B2F;
+    }
+
+    .como-usar ol {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    /* Iframe */
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      display: none;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="header">
-        Bem-vindo ao App de Controle de Medicamentos<br>
-        Escolha uma calculadora no menu lateral.
-    </div>
-
-    <!-- Botão para abrir o menu -->
+  <!-- Cabeçalho -->
+  <div class="header">
     <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <h1>💊 App de Controle de Medicamentos</h1>
+    <p>Escolha uma calculadora no menu lateral</p>
+  </div>
 
-    <!-- Menu lateral -->
-    <div class="menu" id="menu">
-        <button class="close-btn" onclick="toggleMenu()">✖</button>
-        <a href="#" onclick="voltarInicio()">Início</a>
-        <a href="#" onclick="carregarCalculadora('Calculadora-dose.html')">Calculadora de Dose</a>
-        <a href="#" onclick="carregarCalculadora('Calculadora-estoque.html')">Calculadora de Estoque</a>
-        <a href="#" onclick="carregarCalculadora('Calculadora-frasco.html')">Calculadora de Frasco</a>
+  <!-- Menu lateral -->
+  <div class="menu" id="menu">
+    <button class="close-btn" onclick="toggleMenu()">✖</button>
+    <a href="#" onclick="voltarInicio()">Início</a>
+    <a href="#" onclick="carregarCalculadora('Calculadora-dose.html')">💧 Calculadora de Dose</a>
+    <a href="#" onclick="carregarCalculadora('Calculadora-estoque.html')">📦 Calculadora de Estoque</a>
+    <a href="#" onclick="carregarCalculadora('Calculadora-frasco.html')">🧴 Calculadora de Frasco</a>
+  </div>
+
+  <!-- Conteúdo -->
+  <div class="content">
+    <h2>Bem-vindo ao MedControl</h2>
+    <p>Seu assistente digital para cálculos farmacêuticos precisos e seguros. Selecione uma das calculadoras disponíveis no menu lateral.</p>
+
+    <!-- Cards -->
+    <div class="cards">
+      <div class="card">
+        <div>💧</div>
+        <h3>Calculadora de Dose</h3>
+        <p>Calcule a dose diária total baseada dosagem prescrita.</p>
+      </div>
+      <div class="card">
+        <div>📦</div>
+        <h3>Calculadora de Estoque</h3>
+        <p>Determine o tempo de duração do estoque do medicamento com base na administração diária.</p>
+      </div>
+      <div class="card">
+        <div>🧴</div>
+        <h3>Calculadora de Frasco</h3>
+        <p>Calcule o tempo de duração de cada frasco baseado na administração diária do medicmamento.</p>
+      </div>
     </div>
 
-    <!-- Conteúdo principal -->
-    <div class="content">
-        <iframe id="calculadoraFrame"></iframe>
+    <!-- Como usar -->
+    <div class="como-usar">
+      <h4>Como usar:</h4>
+      <ol>
+        <li>Clique no menu (☰) ou use Ctrl + B</li>
+        <li>Selecione a calculadora desejada</li>
+        <li>Preencha os campos necessários</li>
+        <li>Clique em “Calcular” para ver o resultado</li>
+      </ol>
     </div>
 
-    <script>
-        function toggleMenu() {
-            const menu = document.getElementById("menu");
-            menu.style.left = (menu.style.left === "0px") ? "-250px" : "0px";
-        }
+    <!-- Iframe -->
+    <iframe id="calculadoraFrame"></iframe>
+  </div>
 
-        function carregarCalculadora(pagina) {
-            const frame = document.getElementById("calculadoraFrame");
-            frame.src = pagina;
-            frame.style.display = "block";
-        }
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      menu.style.left = (menu.style.left === "0px") ? "-250px" : "0px";
+    }
 
-        function voltarInicio() {
-            const frame = document.getElementById("calculadoraFrame");
-            frame.style.display = "none";
-        }
+    function carregarCalculadora(pagina) {
+      const frame = document.getElementById("calculadoraFrame");
+      frame.src = pagina;
+      frame.style.display = "block";
+    }
 
-        document.addEventListener("keydown", function(event) {
-            if (event.ctrlKey && event.key === "b") {
-                toggleMenu();
-                event.preventDefault();
-            }
-        });
-    </script>
+    function voltarInicio() {
+      const frame = document.getElementById("calculadoraFrame");
+      frame.style.display = "none";
+    }
+
+    document.addEventListener("keydown", function(event) {
+      if (event.ctrlKey && event.key === "b") {
+        toggleMenu();
+        event.preventDefault();
+      }
+    });
+  </script>
 
 </body>
 </html>
