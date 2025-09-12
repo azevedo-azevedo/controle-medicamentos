@@ -1,252 +1,149 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>💊 App de Controle de Medicamentos</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f6f9;
-    }
-
-    /* Topo */
-    header {
-      background-color: #3d5436;
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    header span {
-      margin-left: 10px;
-    }
-
-    /* Container central */
-    .container {
-      max-width: 600px;
-      margin: 40px auto;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-      text-align: center;
-    }
-
-    .container h2 {
-      color: #3d5436;
-      margin-bottom: 10px;
-    }
-
-    .container p {
-      color: #666;
-      font-size: 14px;
-      margin-bottom: 25px;
-    }
-
-    label {
-      display: block;
-      text-align: left;
-      margin: 10px 0 5px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    select, input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      margin-bottom: 15px;
-      font-size: 14px;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-
-    button {
-      flex: 1;
-      padding: 12px;
-      font-size: 14px;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .btn-calc {
-      background-color: #7d8e6d;
-      color: white;
-      margin-right: 10px;
-    }
-
-    .btn-calc:hover {
-      background-color: #6c7e5d;
-    }
-
-    .btn-clear {
-      background-color: #e0e0e0;
-      color: #333;
-    }
-
-    .btn-clear:hover {
-      background-color: #d6d6d6;
-    }
-
-    #resultado {
-      margin-top: 20px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #3d5436;
-    }
-
-    .meses {
-      color: red;
-      font-weight: bold;
-      margin-top: 10px;
-      display: block;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Duração do Frasco</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        select, input, button {
+            margin: 10px;
+            padding: 10px;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .meses {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <!-- Topo -->
-  <header>
-    💊 <span>App de Controle de Medicamentos</span>
-  </header>
-
-  <!-- Card -->
-  <div class="container">
-    <h2>Calculadora de Frasco</h2>
-    <p>Calcule a duração de um frasco com base na dosagem</p>
-
+    <h2>Calculadora de Duração do Frasco</h2>
+    
     <label for="marca">Selecione a Marca:</label>
     <select id="marca">
-      <option value="35">Biocase (35 gotas/ml)</option>
-      <option value="40">Bontà Botanicals (40 gotas/ml)</option>
-      <option value="44">Canna River (44 gotas/ml)</option>
-      <option value="38">cbdMD (38 gotas/ml)</option>
-      <option value="47">CBfarma (47 gotas/ml)</option>
-      <option value="30">Ease Labs (30 gotas/ml)</option>
-      <option value="43">Eliv (43 gotas/ml)</option>
-      <option value="36">Entourage (36 gotas/ml)</option>
-      <option value="40">Erth Wellness (40 gotas/ml)</option>
-      <option value="42">Evona (42 gotas/ml)</option>
-      <option value="30">Extractos del Sur (30 gotas/ml)</option>
-      <option value="28">Greens JAN-D 1500 (28 gotas/ml)</option>
-      <option value="28">Greens JAN-D 5100 (28 gotas/ml)</option>
-      <option value="32">Greens G-LIFE 6000 (32 gotas/ml)</option>
-      <option value="45">HempMeds RSHO BR 3000 (45 gotas/ml)</option>
-      <option value="50">HempMeds RSHO BR 6000 (50 gotas/ml)</option>
-      <option value="50">HempMeds RSHO Calm Support (50 gotas/ml)</option>
-      <option value="35">HempMeds RSHO Focus Support (35 gotas/ml)</option>
-      <option value="50">HempMeds RSHO X 6000 (50 gotas/ml)</option>
-      <option value="33">HempMeds 9 1:1 (33 gotas/ml)</option>
-      <option value="49">Korasana (49 gotas/ml)</option>
-      <option value="35">Lazarus Naturals (35 gotas/ml)</option>
-      <option value="40">Luna Organics Relief (40 gotas/ml)</option>
-      <option value="48">Luna Organics Sleep (48 gotas/ml)</option>
-      <option value="41">Moonlion (41 gotas/ml)</option>
-      <option value="48">Naternal (48 gotas/ml)</option>
-      <option value="52">Natyva (52 gotas/ml)</option>
-      <option value="42">Neurogan (42 gotas/ml)</option>
-      <option value="40">Nex Biopharma (40 gotas/ml)</option>
-      <option value="40">Odonto CBD (40 gotas/ml)</option>
-      <option value="50">Okii (50 gotas/ml)</option>
-      <option value="45">Pure Jamaican (45 gotas/ml)</option>
-      <option value="40">Remederi (40 gotas/ml)</option>
-      <option value="33">Sensia 1:1 CBD/THC e THC (33 gotas/ml)</option>
-      <option value="45">Sensia (45 gotas/ml)</option>
-      <option value="56">Serene (56 gotas/ml)</option>
-      <option value="46">Swiss Vitalis (46 gotas/ml)</option>
-      <option value="35">UB Super (35 gotas/ml)</option>
-      <option value="30">USA Hemp (30 gotas/ml)</option>
-      <option value="34">Valtellinamed (34 gotas/ml)</option>
-      <option value="30">Volcanic (30 gotas/ml)</option>        
-      <option value="37">Zion (37 gotas/ml)</option>        
+        <option value="35">Biocase (35 gotas/ml)</option>
+        <option value="40">Bontà Botanicals (40 gotas/ml)</option>
+        <option value="44">Canna River (44 gotas/ml)</option>
+        <option value="38">cbdMD (38 gotas/ml)</option>
+        <option value="47">CBfarma (47 gotas/ml)</option>
+        <option value="30">Ease Labs (30 gotas/ml)</option>
+        <option value="43">Eliv (43 gotas/ml)</option>
+        <option value="36">Entourage (36 gotas/ml)</option>
+        <option value="40">Erth Wellness (40 gotas/ml)</option>
+        <option value="42">Evona (42 gotas/ml)</option>
+        <option value="30">Extractos del Sur (30 gotas/ml)</option>
+        <option value="28">Greens JAN-D 1500 (28 gotas/ml)</option>
+        <option value="28">Greens JAN-D 5100 (28 gotas/ml)</option>
+        <option value="32">Greens G-LIFE 6000 (32 gotas/ml)</option>
+        <option value="45">HempMeds RSHO BR 3000 (45 gotas/ml)</option>
+        <option value="50">HempMeds RSHO BR 6000 (50 gotas/ml)</option>
+        <option value="50">HempMeds RSHO Calm Support (50 gotas/ml)</option>
+        <option value="35">HempMeds RSHO Focus Support (35 gotas/ml)</option>
+        <option value="50">HempMeds RSHO X 6000 (50 gotas/ml)</option>
+        <option value="33">HempMeds 9 1:1 (33 gotas/ml)</option>
+        <option value="49">Korasana (49 gotas/ml)</option>
+        <option value="35">Lazarus Naturals (35 gotas/ml)</option>
+        <option value="40">Luna Organics Relief (40 gotas/ml)</option>
+        <option value="48">Luna Organics Sleep (48 gotas/ml)</option>
+        <option value="41">Moonlion (41 gotas/ml)</option>
+        <option value="48">Naternal (48 gotas/ml)</option>
+        <option value="52">Natyva (52 gotas/ml)</option>
+        <option value="42">Neurogan (42 gotas/ml)</option>
+        <option value="40">Nex Biopharma (40 gotas/ml)</option>
+        <option value="40">Odonto CBD (40 gotas/ml)</option>
+        <option value="50">Okii (50 gotas/ml)</option>
+        <option value="45">Pure Jamaican (45 gotas/ml)</option>
+        <option value="40">Remederi (40 gotas/ml)</option>
+        <option value="33">Sensia 1:1 CBD/THC e THC (33 gotas/ml)</option>
+        <option value="45">Sensia (45 gotas/ml)</option>
+        <option value="56">Serene (56 gotas/ml)</option>
+        <option value="46">Swiss Vitalis (46 gotas/ml)</option>
+        <option value="35">UB Super (35 gotas/ml)</option>
+        <option value="30">USA Hemp (30 gotas/ml)</option>
+        <option value="34">Valtellinamed (34 gotas/ml)</option>
+        <option value="30">Volcanic (30 gotas/ml)</option>        
+        <option value="37">Zion (37 gotas/ml)</option>        
     </select>
-
+    <br>
+    
     <label for="unidade">Unidade de Dosagem:</label>
     <select id="unidade" onchange="atualizarPlaceholder()">
-      <option value="gotas">Gotas</option>
-      <option value="ml">mL</option>
+        <option value="gotas">Gotas</option>
+        <option value="ml">mL</option>
     </select>
-
+    <br>
+    
     <label for="volume">Volume do Frasco (mL):</label>
     <select id="volume">
-      <option value="10">10 mL</option>
-      <option value="15">15 mL</option>
-      <option value="30">30 mL</option>
-      <option value="60">60 mL</option>
-      <option value="120">120 mL</option>
+        <option value="10">10 mL</option>
+        <option value="15">15 mL</option>
+        <option value="30">30 mL</option>
+        <option value="60">60 mL</option>
+        <option value="120">120 mL</option>
     </select>
-
+    <br>
+    
     <label for="dosagem">Dosagem Diária:</label>
     <input type="number" id="dosagem" placeholder="Informe a dosagem" min="0.01" step="0.01">
-
-    <div class="buttons">
-      <button class="btn-calc" onclick="calcularDuracao()">+ Calcular</button>
-      <button class="btn-clear" onclick="document.getElementById('dosagem').value=''; document.getElementById('resultado').innerHTML=''; document.getElementById('resultadoMeses').innerHTML='';">– Limpar</button>
-    </div>
-
+    <br>
+    
+    <button onclick="calcularDuracao()">Calcular</button>
     <p id="resultado"></p>
     <p id="resultadoMeses"></p>
-  </div>
+    
+    <script>
+        function atualizarPlaceholder() {
+            const unidade = document.getElementById("unidade").value;
+            document.getElementById("dosagem").placeholder = unidade === "gotas" ? "Informe a dosagem em gotas" : "Informe a dosagem em mL";
+        }
 
-  <script>
-    function atualizarPlaceholder() {
-      const unidade = document.getElementById("unidade").value;
-      document.getElementById("dosagem").placeholder = unidade === "gotas" ? "Informe a dosagem em gotas" : "Informe a dosagem em mL";
-    }
-
-    function calcularDuracao() {
-      const marca = parseFloat(document.getElementById("marca").value);
-      const unidade = document.getElementById("unidade").value;
-      const volume = parseFloat(document.getElementById("volume").value);
-      const dosagem = parseFloat(document.getElementById("dosagem").value);
-      const resultado = document.getElementById("resultado");
-      const resultadoMeses = document.getElementById("resultadoMeses");
-      
-      if (isNaN(dosagem) || dosagem <= 0) {
-        resultado.innerHTML = '<span style="color: red;">Por favor, insira uma dosagem válida.</span>';
-        resultadoMeses.innerHTML = "";
-        return;
-      }
-      
-      let dias;
-      if (unidade === "gotas") {
-        const totalGotas = marca * volume;
-        dias = totalGotas / dosagem;
-      } else {
-        dias = volume / dosagem;
-      }
-      
-      resultado.innerHTML = `O frasco irá durar aproximadamente <strong>${Math.floor(dias)}</strong> dias.`;
-      
-      const meses = dias / 30;
-      if (meses >= 1) {
-        resultadoMeses.innerHTML = `<span class="meses">O frasco irá durar aproximadamente <strong>${meses.toFixed(1)}</strong> meses.</span>`;
-      } else {
-        resultadoMeses.innerHTML = "";
-      }
-    }
-
-    document.addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
+        function calcularDuracao() {
+            const marca = parseFloat(document.getElementById("marca").value);
+            const unidade = document.getElementById("unidade").value;
+            const volume = parseFloat(document.getElementById("volume").value);
+            const dosagem = parseFloat(document.getElementById("dosagem").value);
+            const resultado = document.getElementById("resultado");
+            const resultadoMeses = document.getElementById("resultadoMeses");
+            
+            if (isNaN(dosagem) || dosagem <= 0) {
+                resultado.innerHTML = '<span style="color: red;">Por favor, insira uma dosagem válida.</span>';
+                resultadoMeses.innerHTML = "";
+                return;
+            }
+            
+            let dias;
+            if (unidade === "gotas") {
+                const totalGotas = marca * volume;
+                dias = totalGotas / dosagem;
+            } else {
+                dias = volume / dosagem;
+            }
+            
+            resultado.innerHTML = `O frasco irá durar aproximadamente <strong>${Math.floor(dias)}</strong> dias.`;
+            
+            const meses = dias / 30;
+            if (meses >= 1) {
+                resultadoMeses.innerHTML = `<br><br><span class="meses">O frasco irá durar aproximadamente <strong>${meses.toFixed(1)}</strong> meses.</span>`;
+            } else {
+                resultadoMeses.innerHTML = "";
+            }
+        }
+        document.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
         event.preventDefault();
         calcularDuracao();
         document.activeElement.blur();
-      }
-    });
-  </script>
+    }
+});
+    </script>
 </body>
 </html>
+
