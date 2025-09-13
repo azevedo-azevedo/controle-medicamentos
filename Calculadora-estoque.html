@@ -1,38 +1,155 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Duração de Estoque</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        select, input, button {
-            margin: 10px;
-            padding: 10px;
-        }
-        #resultado {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-        .meses {
-            color: red;
-            font-weight: bold;
-        }
-        #dataSinalizacao {
-            color: red;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App de Controle de Medicamentos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Cabeçalho */
+    header {
+      background-color: #4C5B2F;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    header span {
+      font-weight: normal;
+      font-size: 14px;
+      display: block;
+    }
+
+    /* Card central */
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0px 0px rgba(255, 255, 255, 0.1);
+      max-width: 900;
+      width: 80%;
+      text-align: center;
+    }
+
+    .icon {
+      font-size: 40px;
+      color: #4C5B2F;
+      margin-bottom: 10px;
+    }
+
+    .card h2 {
+      margin: 0;
+      color: #4C5B2F;
+      font-size: 22px;
+    }
+
+    .card p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    /* Labels e inputs */
+    label {
+      display: block;
+      text-align: left;
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 14px;
+      color: #333;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    select:focus, input:focus {
+      border-color: #4C5B2F;
+      outline: none;
+    }
+
+    /* Botões */
+    .btn-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-calc {
+      background-color: #7d8f6d;
+      color: white;
+      margin-right: 10px;
+    }
+
+    .btn-calc:hover {
+      background-color: #6c7d5d;
+    }
+
+    .btn-clear {
+      background-color: #ddd;
+      color: #333;
+    }
+
+    .btn-clear:hover {
+      background-color: #bbb;
+    }
+
+    /* Resultados */
+    #resultado, #dataFinal, #dataSinalizacao {
+      margin-top: 15px;
+      font-size: 15px;
+      color: #333;
+    }
+
+    #dataSinalizacao {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <h2>Calculadora de Duração de Estoque</h2>
-    
-    <label for="marca">Selecione a Marca:</label>
-    <select id="marca">
+
+  <!-- Conteúdo -->
+  <div class="container">
+    <div class="card">
+<img src="icons/caixa.png" alt="Ícone Estoque" class="icon">
+      <h2>Calculadora de Estoque</h2>
+      <p>Determine o tempo de duração do estoque do medicamento com base na administração diária.</p>
+
+      <label for="marca">Selecione a Marca:</label>
+      <select id="marca">
         <option value="35">Biocase (35 gotas/ml)</option>
         <option value="40">Bontà Botanicals (40 gotas/ml)</option>
         <option value="44">Canna River (44 gotas/ml)</option>
@@ -73,106 +190,103 @@
         <option value="35">UB Super (35 gotas/ml)</option>
         <option value="30">USA Hemp (30 gotas/ml)</option>
         <option value="34">Valtellinamed (34 gotas/ml)</option>
-        <option value="30">Volcanic (30 gotas/ml)</option>        
-        <option value="37">Zion (37 gotas/ml)</option>        
-    </select>
-    <br>
-    
-    
-    <label for="unidade">Unidade de Dosagem:</label>
-    <select id="unidade" onchange="atualizarPlaceholder()">
+        <option value="30">Volcanic (30 gotas/ml)</option>
+        <option value="37">Zion (37 gotas/ml)</option>
+      </select>
+
+      <label for="unidade">Unidade de Dosagem:</label>
+      <select id="unidade" onchange="atualizarPlaceholder()">
         <option value="gotas">Gotas</option>
         <option value="ml">mL</option>
-    </select>
-    <br>
-    
-    <label for="volume">Volume do Frasco (mL):</label>
-    <select id="volume">
+      </select>
+
+      <label for="volume">Volume do Frasco (mL):</label>
+      <select id="volume">
         <option value="10">10 mL</option>
         <option value="15">15 mL</option>
         <option value="30">30 mL</option>
         <option value="60">60 mL</option>
         <option value="120">120 mL</option>
-    </select>
-    <br>
+      </select>
 
-    <label for="dosagem">Dosagem Diária:</label>
-    <input type="number" id="dosagem" placeholder="Informe a dosagem" min="0.01" step="0.01">
-    <br>
+      <label for="dosagem">Dosagem Diária:</label>
+      <input type="number" id="dosagem" placeholder="Informe a dosagem" min="0.01" step="0.01">
 
-    <label for="quantidade">Quantidade de Frascos:</label>
-    <input type="number" id="quantidade" placeholder="Quantidade de frascos" min="1" step="1" value="1">
-    <br>
+      <label for="quantidade">Quantidade de Frascos:</label>
+      <input type="number" id="quantidade" placeholder="Quantidade de frascos" min="1" step="1" value="1">
 
-    <label for="dataInicio">Data de Início:</label>
-    <input type="date" id="dataInicio">
-    <br>
-    
-    <button onclick="calcularDuracao()">Calcular</button>
-    <p id="resultado"></p>
-    <p id="dataFinal"></p>
-    <p id="dataSinalizacao"></p>
-    
-    <script>
-        function atualizarPlaceholder() {
-            const unidade = document.getElementById("unidade").value;
-            document.getElementById("dosagem").placeholder = unidade === "gotas" ? "Informe a dosagem em gotas" : "Informe a dosagem em mL";
-        }
+      <label for="dataInicio">Data de Início:</label>
+      <input type="date" id="dataInicio">
 
-        function calcularDuracao() {
-            const marca = parseFloat(document.getElementById("marca").value);
-            const unidade = document.getElementById("unidade").value;
-            const volume = parseFloat(document.getElementById("volume").value);
-            const dosagem = parseFloat(document.getElementById("dosagem").value);
-            const quantidadeFrascos = parseInt(document.getElementById("quantidade").value) || 1;
-            const dataInicio = document.getElementById("dataInicio").value;
-            
-            const resultado = document.getElementById("resultado");
-            const dataFinal = document.getElementById("dataFinal");
-            const dataSinalizacao = document.getElementById("dataSinalizacao");
+      <!-- Botões -->
+      <div class="btn-container">
+        <button class="btn-calc" onclick="calcularDuracao()">+ Calcular Estoque</button>
+        <button class="btn-clear" onclick="document.getElementById('resultado').innerHTML='';document.getElementById('dataFinal').innerHTML='';document.getElementById('dataSinalizacao').innerHTML=''">– Limpar</button>
+      </div>
 
-            if (isNaN(dosagem) || dosagem <= 0 || !dataInicio) {
-                resultado.innerHTML = '<span style="color: red;">Por favor, insira uma dosagem válida e a data de início.</span>';
-                dataFinal.innerHTML = "";
-                dataSinalizacao.innerHTML = "";
-                return;
-            }
-            
-            let dias;
-            if (unidade === "gotas") {
-                const totalGotas = marca * volume;
-                dias = totalGotas / dosagem;
-            } else {
-                dias = volume / dosagem;
-            }
+      <!-- Resultados -->
+      <p id="resultado"></p>
+      <p id="dataFinal"></p>
+      <p id="dataSinalizacao"></p>
+    </div>
+  </div>
 
-            // Multiplicando pelo número de frascos
-            dias *= quantidadeFrascos;
+  <script>
+    function atualizarPlaceholder() {
+      const unidade = document.getElementById("unidade").value;
+      document.getElementById("dosagem").placeholder =
+        unidade === "gotas" ? "Informe a dosagem em gotas" : "Informe a dosagem em mL";
+    }
 
-            resultado.innerHTML = `O(s) frasco(s) irá(ão) durar aproximadamente <strong>${Math.floor(dias)}</strong> dias.`;
-            
-            // Calcular a data final
-            const dataInicioObj = new Date(dataInicio);
-            dataInicioObj.setDate(dataInicioObj.getDate() + Math.floor(dias));
-            const dataFinalStr = dataInicioObj.toLocaleDateString('pt-BR');
-            dataFinal.innerHTML = `A data final do estoque será: <strong>${dataFinalStr}</strong>`;
-            
-            // Calcular a data de sinalização (45 dias antes da data final)
-            const dataSinalizacaoObj = new Date(dataInicioObj);
-            dataSinalizacaoObj.setDate(dataSinalizacaoObj.getDate() - 45);
-            const dataSinalizacaoStr = dataSinalizacaoObj.toLocaleDateString('pt-BR');
-            dataSinalizacao.innerHTML = `O paciente deve ser sinalizado no dia: <strong>${dataSinalizacaoStr}</strong>`;
-        }
-        document.addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
+    function calcularDuracao() {
+      const marca = parseFloat(document.getElementById("marca").value);
+      const unidade = document.getElementById("unidade").value;
+      const volume = parseFloat(document.getElementById("volume").value);
+      const dosagem = parseFloat(document.getElementById("dosagem").value);
+      const quantidadeFrascos = parseInt(document.getElementById("quantidade").value) || 1;
+      const dataInicio = document.getElementById("dataInicio").value;
+
+      const resultado = document.getElementById("resultado");
+      const dataFinal = document.getElementById("dataFinal");
+      const dataSinalizacao = document.getElementById("dataSinalizacao");
+
+      if (isNaN(dosagem) || dosagem <= 0 || !dataInicio) {
+        resultado.innerHTML = '<span style="color: red;">Por favor, insira uma dosagem válida e a data de início.</span>';
+        dataFinal.innerHTML = "";
+        dataSinalizacao.innerHTML = "";
+        return;
+      }
+
+      let dias;
+      if (unidade === "gotas") {
+        const totalGotas = marca * volume;
+        dias = totalGotas / dosagem;
+      } else {
+        dias = volume / dosagem;
+      }
+
+      dias *= quantidadeFrascos;
+
+      resultado.innerHTML = `O(s) frasco(s) irá(ão) durar aproximadamente <strong>${Math.floor(dias)}</strong> dias.`;
+
+      const dataInicioObj = new Date(dataInicio);
+      dataInicioObj.setDate(dataInicioObj.getDate() + Math.floor(dias));
+      const dataFinalStr = dataInicioObj.toLocaleDateString('pt-BR');
+      dataFinal.innerHTML = `A data final do estoque será: <strong>${dataFinalStr}</strong>`;
+
+      const dataSinalizacaoObj = new Date(dataInicioObj);
+      dataSinalizacaoObj.setDate(dataSinalizacaoObj.getDate() - 45);
+      const dataSinalizacaoStr = dataSinalizacaoObj.toLocaleDateString('pt-BR');
+      dataSinalizacao.innerHTML = `O paciente deve ser sinalizado no dia: <strong>${dataSinalizacaoStr}</strong>`;
+    }
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
         event.preventDefault();
         calcularDuracao();
         document.activeElement.blur();
-    }
-});
-    </script>
+      }
+    });
+  </script>
 </body>
 </html>
-
-
-
