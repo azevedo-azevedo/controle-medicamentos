@@ -246,14 +246,18 @@
       menu.style.left = (menu.style.left === "0px") ? "-250px" : "0px";
     }
 
-    function carregarCalculadora(pagina) {
-      document.getElementById("inicio").style.display = "none"; // esconde a tela inicial
-      const calcArea = document.getElementById("calculadoraArea");
-      const frame = document.getElementById("calculadoraFrame");
-      frame.src = pagina;
-      calcArea.style.display = "block"; // mostra a calculadora
-      toggleMenu(); // fecha menu lateral
-    }
+function carregarCalculadora(pagina) {
+  document.getElementById("inicio").style.display = "none";
+  const calcArea = document.getElementById("calculadoraArea");
+  const frame = document.getElementById("calculadoraFrame");
+  frame.src = pagina;
+  calcArea.style.display = "block";
+
+  // Fecha o menu apenas se estiver aberto
+  if (document.getElementById("menu").style.left === "0px") {
+    toggleMenu();
+  }
+}
 
     function voltarInicio() {
       document.getElementById("calculadoraArea").style.display = "none"; // esconde calculadora
@@ -271,6 +275,7 @@
 
 </body>
 </html>
+
 
 
 
