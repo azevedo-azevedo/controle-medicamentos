@@ -183,12 +183,12 @@
 </head>
 <body>
 
-  <!-- Cabeçalho -->
-  <div class="header">
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
-    <h1> 💊 App de Controle de Medicamentos</h1>
-    <p>Escolha uma calculadora no menu lateral</p>
-  </div>
+<!-- Cabeçalho -->
+<div class="header" onclick="voltarInicio()" style="cursor: pointer;">
+  <button class="menu-btn" onclick="event.stopPropagation(); toggleMenu()">☰</button>
+  <h1> 💊 App de Controle de Medicamentos</h1>
+  <p>Escolha uma calculadora no menu lateral</p>
+</div>
 
   <!-- Menu lateral -->
   <div class="menu" id="menu">
@@ -275,6 +275,7 @@ function carregarCalculadora(pagina) {
 
 </body>
 </html>
+
 
 
 
