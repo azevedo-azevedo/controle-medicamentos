@@ -259,11 +259,16 @@ function carregarCalculadora(pagina) {
   }
 }
 
-    function voltarInicio() {
-      document.getElementById("calculadoraArea").style.display = "none"; // esconde calculadora
-      document.getElementById("inicio").style.display = "block"; // mostra tela inicial
-      toggleMenu(); // fecha menu lateral
-    }
+function voltarInicio() {
+  document.getElementById("calculadoraArea").style.display = "none";
+  document.getElementById("inicio").style.display = "block";
+
+  // Fecha o menu apenas se estiver aberto
+  const menu = document.getElementById("menu");
+  if (menu.style.left === "0px") {
+    toggleMenu();
+  }
+}
 
     document.addEventListener("keydown", function(event) {
       if (event.ctrlKey && event.key === "b") {
@@ -275,6 +280,7 @@ function carregarCalculadora(pagina) {
 
 </body>
 </html>
+
 
 
 
